@@ -1,12 +1,7 @@
-import { Button } from '@material-ui/core';
-import { getEventsEndpoint } from '../backend';
+import CalendarScreen from './CalendarScreen';
 
 function App() {
-  return (
-    <Button color="primary" variant="contained">
-      Hello World
-    </Button>
-  );
+  return <CalendarScreen />;
 }
 
 export default App;
