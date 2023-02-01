@@ -10,19 +10,31 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@material-ui/core/Icon';
-import { getEventsEndpoint, IEvent } from './backend';
+import {
+  getCalendarsEndpoint,
+  getEventsEndpoint,
+  ICalendar,
+  IEvent,
+} from './backend';
 import { useEffect, useState } from 'react';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 export default function CalendarScreen() {
+  const [calendars, setCalendars] = useState<ICalendar[]>([]);
   const [events, setEvents] = useState<IEvent[]>([]);
-  const weeks = generateCalendar(getToday(), events);
+  const weeks = generateCalendar(getToday(), events, calendars);
   const firstDay = weeks[0][0].date;
   const lastDay = weeks[weeks.length - 1][6].date;
 
   useEffect(() => {
-    getEventsEndpoint(firstDay, lastDay).then(setEvents);
+    Promise.all([
+      getCalendarsEndpoint(),
+      getEventsEndpoint(firstDay, lastDay),
+    ]).then(([calendars, events]) => {
+      setCalendars(calendars);
+      setEvents(events);
+    });
   }, [firstDay, lastDay]);
 
   return (
@@ -119,6 +131,7 @@ export default function CalendarScreen() {
                           {cell.dayOfMonth}
                         </Box>
                         {cell.events.map(event => {
+                          const color = event.calendar.color;
                           return (
                             <Box
                               component={'button'}
@@ -135,14 +148,30 @@ export default function CalendarScreen() {
                               }}
                             >
                               {event.time && (
-                                <Icon fontSize="inherit">watch_later</Icon>
+                                <>
+                                  <Icon style={{ color }} fontSize="inherit">
+                                    watch_later
+                                  </Icon>
+                                  <Box component={'span'} margin="0 4px">
+                                    {event.time}
+                                  </Box>
+                                </>
                               )}
-                              {event.time && (
-                                <Box component={'span'} margin="0 4px">
-                                  {event.time}
-                                </Box>
+                              {event.time ? (
+                                <span>{event.desc}</span>
+                              ) : (
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    backgroundColor: color,
+                                    color: 'white',
+                                    padding: '2px 4px',
+                                    borderRadius: '4px',
+                                  }}
+                                >
+                                  {event.desc}
+                                </span>
                               )}
-                              <span>{event.desc}</span>
                             </Box>
                           );
                         })}
@@ -162,12 +191,13 @@ export default function CalendarScreen() {
 interface ICalendarCell {
   date: string;
   dayOfMonth: number;
-  events: IEvent[];
+  events: (IEvent & { calendar: ICalendar })[];
 }
 
 function generateCalendar(
   date: string,
-  allEvents: IEvent[]
+  allEvents: IEvent[],
+  calendars: ICalendar[]
 ): ICalendarCell[][] {
   const weeks: ICalendarCell[][] = [];
   const jsDate = new Date(date + 'T12:00:00');
@@ -188,7 +218,12 @@ function generateCalendar(
       week.push({
         dayOfMonth: currentDay.getDate(),
         date: isoDate,
-        events: allEvents.filter(e => e.date === isoDate),
+        events: allEvents
+          .filter(e => e.date === isoDate)
+          .map(e => {
+            const calendar = calendars.find(cal => cal.id === e.calendarId)!;
+            return { ...e, calendar };
+          }),
       });
       currentDay.setDate(currentDay.getDate() + 1);
     }
