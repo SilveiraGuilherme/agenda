@@ -15,8 +15,8 @@ function App() {
         <Route path={'/calendar/:month'}>
           <CalendarScreen />
         </Route>
+        <Redirect to={{ pathname: '/calendar/' + month }}></Redirect>
       </Switch>
-      <Redirect to={{ pathname: '/calendar/' + month }}></Redirect>
     </Router>
   );
 }

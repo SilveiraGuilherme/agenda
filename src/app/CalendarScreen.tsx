@@ -17,16 +17,19 @@ import {
   ICalendar,
   IEvent,
 } from './backend';
-import { getToday } from './dateFunctions';
+import { Link, useParams } from 'react-router-dom';
+import { addMonths, formatMonth } from './dateFunctions';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 export default function CalendarScreen() {
+  const { month } = useParams<{ month: string }>();
+
   const [calendars, setCalendars] = useState<ICalendar[]>([]);
   const [calendarsSelected, setCalendarsSelected] = useState<boolean[]>([]);
   const [events, setEvents] = useState<IEvent[]>([]);
   const weeks = generateCalendar(
-    getToday(),
+    month + '-01',
     events,
     calendars,
     calendarsSelected
@@ -81,14 +84,22 @@ export default function CalendarScreen() {
           padding="8px 16px"
           borderLeft="1px solid rgb(224, 224, 224)"
         >
-          <IconButton aria-label="Previous month">
+          <IconButton
+            aria-label="Previous month"
+            component={Link}
+            to={`/calendar/${addMonths(month, -1)}`}
+          >
             <Icon>chevron_left</Icon>
           </IconButton>
-          <IconButton aria-label="Next month">
+          <IconButton
+            aria-label="Next month"
+            component={Link}
+            to={`/calendar/${addMonths(month, 1)}`}
+          >
             <Icon>chevron_right</Icon>
           </IconButton>
           <Box component="h3" flex="1" paddingLeft="16px">
-            January 2023
+            {formatMonth(month)}
           </Box>
           <Box>
             <IconButton aria-label="User">
