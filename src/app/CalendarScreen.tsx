@@ -10,13 +10,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@material-ui/core/Icon';
+import { useEffect, useState } from 'react';
 import {
   getCalendarsEndpoint,
   getEventsEndpoint,
   ICalendar,
   IEvent,
 } from './backend';
-import { useEffect, useState } from 'react';
+import { getToday } from './dateFunctions';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -261,8 +262,4 @@ function generateCalendar(
   } while (currentDay.getMonth() === currentMonth);
 
   return weeks;
-}
-
-function getToday() {
-  return '2021-06-03';
 }

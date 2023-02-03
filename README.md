@@ -1,12 +1,167 @@
-# Projeto base do módulo React 2
+<a name="readme-top"></a>
 
-Este diretório contém a estrutura base para um projeto com:
+<!-- PROJECT LOGO -->
 
-- React 17 (usando typescript)
-- React Router 5
-- Material UI 4
+<div align="center">
 
-Basta copiar essa pasta e renomeá-la conforme desejado. Adicionalmente, você
-pode renomear a propriedade `name` no arquivo `package.json`, mas isso é opcional.
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-Em seguida, entre no diretório e instale as depedências com `npm install`, como de costume.
+<br />
+<br />
+
+  <a href="https://flash-cards-jsguilherme.netlify.app/">
+    <img src="./public/img/flash-cards-logo.png" width="300px" alt="Flash cards logo">
+  </a>
+
+  <p align="center">
+    Agenda
+    <br />
+    <a href="https://flash-cards-jsguilherme.netlify.app/">View Demo</a>
+    ·
+    <a href="https://github.com/SilveiraGuilherme/agenda/issues/new">Report Bug</a>
+  </p>
+</div>
+
+<br/>
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#links">Links</a></li>
+  </ol>
+</details>
+
+<br/>
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+[![Alt text](./public/img/flash-cards-website.png)](https://flash-cards-jsguilherme.netlify.app/)
+
+<!-- WEBSITE DESCRIPTION -->
+
+Flash Cards App is a web application that allows users to add, edit and remove flash cards containing information of their preference. It can be very usefull for studying purposes.
+
+### Built With
+
+- <strong>React</strong> for UI building.
+- <strong>Axios</strong> for HTTP requests.
+- <strong>Node.js</strong> for server-side programming.
+- <strong>Tailwind</strong> for UI styling.
+- <strong>JavaScript, HTML, CSS</strong> as a general stack to build web applications.
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+To get and run a local copy of this project follow the instructions below.
+
+### Requirements
+
+The application only works locally on previous Node versions. This one was made on v16.11.0.
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/SilveiraGuilherme/agenda.git
+   ```
+2. Install packages
+   ```sh
+   yarn
+   ```
+3. Run the backend inside the folder 'backend'
+   ```sh
+   yarn server
+   ```
+4. Run the project locally
+   ```sh
+   yarn dev
+   ```
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+- [x] Listing component to show all the existing flash cards with titles and descriptions.
+- [x] Registration component to add and edit flash cards.
+- [x] Studying component to shuffle and flip the flash cards, showing title or description.
+
+See the [open issues](https://github.com/SilveiraGuilherme/agenda/issues) for a full list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<!-- CONTACT -->
+
+## Author
+
+[Guilherme Silveira](https://silveiraguilherme.github.io/SilveiraGuilherme/) |
+[LinkedIn](https://linkedin.com/in/jsguilherme)
+
+<!-- RESOURCES -->
+
+## Links
+
+- GitHub repository: [https://github.com/SilveiraGuilherme/agenda](https://github.com/SilveiraGuilherme/agenda)
+- Website: [flash-cards-app](https://flash-cards-jsguilherme.netlify.app/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/SilveiraGuilherme/agenda.svg?style=for-the-badge
+[contributors-url]: https://github.com/SilveiraGuilherme/agenda/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/SilveiraGuilherme/agenda.svg?style=for-the-badge
+[forks-url]: https://github.com/SilveiraGuilherme/agenda/network/members
+[stars-shield]: https://img.shields.io/github/stars/SilveiraGuilherme/agenda.svg?style=for-the-badge
+[stars-url]: https://github.com/SilveiraGuilherme/agenda/stargazers
+[issues-shield]: https://img.shields.io/github/issues/SilveiraGuilherme/agenda.svg?style=for-the-badge
+[issues-url]: https://github.com/SilveiraGuilherme/agenda/issues
+[license-shield]: https://img.shields.io/github/license/SilveiraGuilherme/agenda.svg?style=for-the-badge
+[license-url]: https://github.com/SilveiraGuilherme/agenda/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/jsguilherme
