@@ -22,8 +22,14 @@ const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 export default function CalendarScreen() {
   const [calendars, setCalendars] = useState<ICalendar[]>([]);
+  const [calendarsSelected, setCalendarsSelected] = useState<boolean[]>([]);
   const [events, setEvents] = useState<IEvent[]>([]);
-  const weeks = generateCalendar(getToday(), events, calendars);
+  const weeks = generateCalendar(
+    getToday(),
+    events,
+    calendars,
+    calendarsSelected
+  );
   const firstDay = weeks[0][0].date;
   const lastDay = weeks[weeks.length - 1][6].date;
 
@@ -32,10 +38,17 @@ export default function CalendarScreen() {
       getCalendarsEndpoint(),
       getEventsEndpoint(firstDay, lastDay),
     ]).then(([calendars, events]) => {
+      setCalendarsSelected(calendars.map(() => true));
       setCalendars(calendars);
       setEvents(events);
     });
   }, [firstDay, lastDay]);
+
+  function toggleCalendar(i: number) {
+    const newValue = [...calendarsSelected];
+    newValue[i] = !newValue[i];
+    setCalendarsSelected(newValue);
+  }
 
   return (
     <Box display="flex" height="100%" alignItems="stretch">
@@ -44,18 +57,24 @@ export default function CalendarScreen() {
         <Button variant="contained">New Event</Button>
         <Box marginTop="64px">
           <h3>Agendas</h3>
-          <FormControlLabel
-            control={<Checkbox color="secondary" />}
-            label="Personal"
-          />
-          <FormControlLabel
-            control={<Checkbox color="success" />}
-            label="Work"
-          />
+          {calendars.map((calendar, i) => (
+            <FormControlLabel
+              key={calendar.id}
+              control={
+                <Checkbox
+                  style={{ color: calendar.color }}
+                  checked={calendarsSelected[i]}
+                  onChange={() => toggleCalendar(i)}
+                />
+              }
+              label={calendar.name}
+            />
+          ))}
         </Box>
       </Box>
-      <TableContainer component={'section'}>
+      <Box display="flex" flex="1" flexDirection="column">
         <Box
+          component={'section'}
           display="flex"
           alignItems="center"
           padding="8px 16px"
@@ -76,128 +95,133 @@ export default function CalendarScreen() {
             </IconButton>
           </Box>
         </Box>
-        <Table
-          sx={{
-            minHeight: '100%',
-            borderRight: 1,
-            borderTop: 1,
-            borderColor: 'grey.300',
-            tableLayout: 'fixed',
-          }}
-          aria-label="simple table"
-        >
-          <TableHead>
-            <TableRow>
-              {DAYS_OF_THE_WEEK.map(day => {
+        <TableContainer style={{ flex: '1' }} component={'section'}>
+          <Table
+            sx={{
+              minHeight: '100%',
+              borderRight: 1,
+              borderTop: 1,
+              borderColor: 'grey.300',
+              tableLayout: 'fixed',
+            }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                {DAYS_OF_THE_WEEK.map(day => {
+                  return (
+                    <TableCell
+                      sx={{
+                        borderLeft: 1,
+                        borderColor: 'grey.300',
+                      }}
+                      align="center"
+                      key={day}
+                    >
+                      {day}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {weeks.map((week, i) => {
                 return (
-                  <TableCell
-                    sx={{
-                      borderLeft: 1,
-                      borderColor: 'grey.300',
-                    }}
-                    align="center"
-                    key={day}
-                  >
-                    {day}
-                  </TableCell>
+                  <TableRow key={i}>
+                    {week.map(cell => {
+                      return (
+                        <TableCell
+                          sx={{
+                            borderLeft: 1,
+                            borderColor: 'grey.300',
+                            verticalAlign: 'top',
+                            overflow: 'hidden',
+                            padding: '8px 4px',
+                          }}
+                          align="center"
+                          key={cell.date}
+                        >
+                          <Box
+                            component={'div'}
+                            sx={{
+                              fontWeight: 500,
+                              marginBottom: '4px',
+                            }}
+                          >
+                            {cell.dayOfMonth}
+                          </Box>
+                          {cell.events.map(event => {
+                            const color = event.calendar.color;
+                            return (
+                              <Box
+                                component={'button'}
+                                key={event.id}
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'left',
+                                  background: 'none',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  whiteSpace: 'nowrap',
+                                  margin: '4px 0',
+                                }}
+                              >
+                                {event.time && (
+                                  <>
+                                    <Icon style={{ color }} fontSize="inherit">
+                                      watch_later
+                                    </Icon>
+                                    <Box component={'span'} margin="0 4px">
+                                      {event.time}
+                                    </Box>
+                                  </>
+                                )}
+                                {event.time ? (
+                                  <span>{event.desc}</span>
+                                ) : (
+                                  <span
+                                    style={{
+                                      display: 'inline-block',
+                                      backgroundColor: color,
+                                      color: 'white',
+                                      padding: '2px 4px',
+                                      borderRadius: '4px',
+                                    }}
+                                  >
+                                    {event.desc}
+                                  </span>
+                                )}
+                              </Box>
+                            );
+                          })}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
               })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {weeks.map((week, i) => {
-              return (
-                <TableRow key={i}>
-                  {week.map(cell => {
-                    return (
-                      <TableCell
-                        sx={{
-                          borderLeft: 1,
-                          borderColor: 'grey.300',
-                          verticalAlign: 'top',
-                          overflow: 'hidden',
-                          padding: '8px 4px',
-                        }}
-                        align="center"
-                        key={cell.date}
-                      >
-                        <Box
-                          component={'div'}
-                          sx={{
-                            fontWeight: 500,
-                            marginBottom: '4px',
-                          }}
-                        >
-                          {cell.dayOfMonth}
-                        </Box>
-                        {cell.events.map(event => {
-                          const color = event.calendar.color;
-                          return (
-                            <Box
-                              component={'button'}
-                              key={event.id}
-                              sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'left',
-                                background: 'none',
-                                border: 'none',
-                                cursor: 'pointer',
-                                whiteSpace: 'nowrap',
-                                margin: '4px 0',
-                              }}
-                            >
-                              {event.time && (
-                                <>
-                                  <Icon style={{ color }} fontSize="inherit">
-                                    watch_later
-                                  </Icon>
-                                  <Box component={'span'} margin="0 4px">
-                                    {event.time}
-                                  </Box>
-                                </>
-                              )}
-                              {event.time ? (
-                                <span>{event.desc}</span>
-                              ) : (
-                                <span
-                                  style={{
-                                    display: 'inline-block',
-                                    backgroundColor: color,
-                                    color: 'white',
-                                    padding: '2px 4px',
-                                    borderRadius: '4px',
-                                  }}
-                                >
-                                  {event.desc}
-                                </span>
-                              )}
-                            </Box>
-                          );
-                        })}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Box>
   );
 }
 
+type IEventWithCalendar = IEvent & { calendar: ICalendar };
+
 interface ICalendarCell {
   date: string;
   dayOfMonth: number;
-  events: (IEvent & { calendar: ICalendar })[];
+  events: IEventWithCalendar[];
 }
 
 function generateCalendar(
   date: string,
   allEvents: IEvent[],
-  calendars: ICalendar[]
+  calendars: ICalendar[],
+  calendarsSelected: boolean[]
 ): ICalendarCell[][] {
   const weeks: ICalendarCell[][] = [];
   const jsDate = new Date(date + 'T12:00:00');
@@ -215,15 +239,21 @@ function generateCalendar(
       const dayStr = currentDay.getDate().toString().padStart(2, '0');
       const isoDate = `${currentDay.getFullYear()}-${monthStr}-${dayStr}`;
 
+      const events: IEventWithCalendar[] = [];
+      for (const event of allEvents) {
+        if (event.date === isoDate) {
+          const calIndex = calendars.findIndex(
+            cal => cal.id === event.calendarId
+          );
+          if (calendarsSelected[calIndex]) {
+            events.push({ ...event, calendar: calendars[calIndex] });
+          }
+        }
+      }
       week.push({
         dayOfMonth: currentDay.getDate(),
         date: isoDate,
-        events: allEvents
-          .filter(e => e.date === isoDate)
-          .map(e => {
-            const calendar = calendars.find(cal => cal.id === e.calendarId)!;
-            return { ...e, calendar };
-          }),
+        events,
       });
       currentDay.setDate(currentDay.getDate() + 1);
     }

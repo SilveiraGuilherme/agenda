@@ -2,12 +2,12 @@
   "calendars": [
     {
       "id": 1,
-      "name": "Pessoal",
+      "name": "Personal",
       "color": "#8E24AA"
     },
     {
       "id": 2,
-      "name": "Trabalho",
+      "name": "Work",
       "color": "#7CB342"
     }
   ],
