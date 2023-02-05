@@ -6,8 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { useEffect, useState } from 'react';
@@ -19,6 +17,7 @@ import {
 } from './backend';
 import { Link, useParams } from 'react-router-dom';
 import { addMonths, formatMonth } from './dateFunctions';
+import CalendarsView from './CalendarsView';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -59,22 +58,11 @@ export default function CalendarScreen() {
       <Box component={'section'} width="12em" padding="8px 16px">
         <h2>Agenda React</h2>
         <Button variant="contained">New Event</Button>
-        <Box marginTop="64px">
-          <h3>Agendas</h3>
-          {calendars.map((calendar, i) => (
-            <FormControlLabel
-              key={calendar.id}
-              control={
-                <Checkbox
-                  style={{ color: calendar.color }}
-                  checked={calendarsSelected[i]}
-                  onChange={() => toggleCalendar(i)}
-                />
-              }
-              label={calendar.name}
-            />
-          ))}
-        </Box>
+        <CalendarsView
+          calendars={calendars}
+          toggleCalendar={toggleCalendar}
+          calendarsSelected={calendarsSelected}
+        />
       </Box>
       <Box display="flex" flex="1" flexDirection="column">
         <Box
