@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { useEffect, useState } from 'react';
 import {
@@ -15,9 +14,9 @@ import {
   ICalendar,
   IEvent,
 } from './backend';
-import { Link, useParams } from 'react-router-dom';
-import { addMonths, formatMonth } from './dateFunctions';
+import { useParams } from 'react-router-dom';
 import CalendarsView from './CalendarsView';
+import CalendarHeader from './CalendarHeader';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -65,36 +64,7 @@ export default function CalendarScreen() {
         />
       </Box>
       <Box display="flex" flex="1" flexDirection="column">
-        <Box
-          component={'section'}
-          display="flex"
-          alignItems="center"
-          padding="8px 16px"
-          borderLeft="1px solid rgb(224, 224, 224)"
-        >
-          <IconButton
-            aria-label="Previous month"
-            component={Link}
-            to={`/calendar/${addMonths(month, -1)}`}
-          >
-            <Icon>chevron_left</Icon>
-          </IconButton>
-          <IconButton
-            aria-label="Next month"
-            component={Link}
-            to={`/calendar/${addMonths(month, 1)}`}
-          >
-            <Icon>chevron_right</Icon>
-          </IconButton>
-          <Box component="h3" flex="1" paddingLeft="16px">
-            {formatMonth(month)}
-          </Box>
-          <Box>
-            <IconButton aria-label="User">
-              <Icon>person</Icon>
-            </IconButton>
-          </Box>
-        </Box>
+        <CalendarHeader month={month} />
         <TableContainer style={{ flex: '1' }} component={'section'}>
           <Table
             sx={{
