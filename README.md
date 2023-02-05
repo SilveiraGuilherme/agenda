@@ -8,20 +8,19 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <br />
 <br />
 
-  <a href="https://flash-cards-jsguilherme.netlify.app/">
-    <img src="./public/img/flash-cards-logo.png" width="300px" alt="Flash cards logo">
+  <a href="https://silveiraguilherme.github.io/agenda/">
+    <img src="./public/img/agenda-logo.png" width="300px" alt="Agenda logo">
   </a>
 
   <p align="center">
     Agenda
     <br />
-    <a href="https://flash-cards-jsguilherme.netlify.app/">View Demo</a>
+    <a href="https://silveiraguilherme.github.io/agenda/">View Demo</a>
     ·
     <a href="https://github.com/SilveiraGuilherme/agenda/issues/new">Report Bug</a>
   </p>
@@ -60,29 +59,24 @@
 
 ## About The Project
 
-[![Alt text](./public/img/flash-cards-website.png)](https://flash-cards-jsguilherme.netlify.app/)
+[![Alt text](./public/img/agenda-website.png)](https://silveiraguilherme.github.io/agenda/)
 
 <!-- WEBSITE DESCRIPTION -->
 
-Flash Cards App is a web application that allows users to add, edit and remove flash cards containing information of their preference. It can be very usefull for studying purposes.
+This is a web agenda that allows users to add, edit and remove events and reminders containing information of their preference, which can be very usefull for planning.
 
 ### Built With
 
 - <strong>React</strong> for UI building.
-- <strong>Axios</strong> for HTTP requests.
 - <strong>Node.js</strong> for server-side programming.
-- <strong>Tailwind</strong> for UI styling.
-- <strong>JavaScript, HTML, CSS</strong> as a general stack to build web applications.
+- <strong>Material-UI</strong> for UI styling.
+- <strong>TypeScript, HTML, CSS</strong> as a general stack to build web applications.
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
 
 To get and run a local copy of this project follow the instructions below.
-
-### Requirements
-
-The application only works locally on previous Node versions. This one was made on v16.11.0.
 
 ### Installation
 
@@ -92,24 +86,31 @@ The application only works locally on previous Node versions. This one was made 
    ```
 2. Install packages
    ```sh
-   yarn
+   npm install
    ```
-3. Run the backend inside the folder 'backend'
+3. Run the backend inside the folder 'agenda-react-backend'
    ```sh
-   yarn server
+   npm start
    ```
 4. Run the project locally
    ```sh
-   yarn dev
+   npm start
    ```
 
 <!-- ROADMAP -->
 
 ## Roadmap
 
-- [x] Listing component to show all the existing flash cards with titles and descriptions.
-- [x] Registration component to add and edit flash cards.
-- [x] Studying component to shuffle and flip the flash cards, showing title or description.
+- [x] Create calendar dinamically.
+- [x] Load events from the backend.
+- [x] Load agendas from the backend.
+- [x] Hide/show agendas.
+- [x] Add router.
+- [x] Add modules.
+- [ ] Create events.
+- [ ] Save data in the backend.
+- [ ] Validate form.
+- [ ] Edit events.
 
 See the [open issues](https://github.com/SilveiraGuilherme/agenda/issues) for a full list of proposed features (and known issues).
 
@@ -128,12 +129,6 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
 <!-- CONTACT -->
 
 ## Author
@@ -146,7 +141,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Links
 
 - GitHub repository: [https://github.com/SilveiraGuilherme/agenda](https://github.com/SilveiraGuilherme/agenda)
-- Website: [flash-cards-app](https://flash-cards-jsguilherme.netlify.app/)
+- Website: [agenda](https://silveiraguilherme.github.io/agenda/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -161,7 +156,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [stars-url]: https://github.com/SilveiraGuilherme/agenda/stargazers
 [issues-shield]: https://img.shields.io/github/issues/SilveiraGuilherme/agenda.svg?style=for-the-badge
 [issues-url]: https://github.com/SilveiraGuilherme/agenda/issues
-[license-shield]: https://img.shields.io/github/license/SilveiraGuilherme/agenda.svg?style=for-the-badge
-[license-url]: https://github.com/SilveiraGuilherme/agenda/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jsguilherme
