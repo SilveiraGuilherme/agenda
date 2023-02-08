@@ -11,7 +11,8 @@ import { useParams } from 'react-router-dom';
 import CalendarsView from './CalendarsView';
 import CalendarHeader from './CalendarHeader';
 import Calendar, { ICalendarCell, IEventWithCalendar } from './Calendar';
-import { EventFormDialog } from './EventFormDialog';
+import { EventFormDialog, IEditingEvent } from './EventFormDialog';
+import { getToday } from './dateFunctions';
 
 export default function CalendarScreen() {
   const { month } = useParams<{ month: string }>();
@@ -19,7 +20,7 @@ export default function CalendarScreen() {
   const [calendars, setCalendars] = useState<ICalendar[]>([]);
   const [calendarsSelected, setCalendarsSelected] = useState<boolean[]>([]);
   const [events, setEvents] = useState<IEvent[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
+  const [editingEvent, setEditingEvent] = useState<IEditingEvent | null>(null);
 
   const weeks = generateCalendar(
     month + '-01',
@@ -47,11 +48,19 @@ export default function CalendarScreen() {
     setCalendarsSelected(newValue);
   }
 
+  function openNewEvent() {
+    setEditingEvent({
+      date: getToday(),
+      desc: '',
+      calendarId: calendars[0].id,
+    });
+  }
+
   return (
     <Box display="flex" height="100%" alignItems="stretch">
       <Box component={'section'} width="12em" padding="8px 16px">
         <h2>Agenda React</h2>
-        <Button variant="contained" onClick={() => setOpen(true)}>
+        <Button variant="contained" onClick={openNewEvent}>
           New Event
         </Button>
         <CalendarsView
@@ -63,7 +72,11 @@ export default function CalendarScreen() {
       <Box component={'section'} display="flex" flex="1" flexDirection="column">
         <CalendarHeader month={month} />
         <Calendar weeks={weeks} />
-        <EventFormDialog open={open} onClose={() => setOpen(false)} />
+        <EventFormDialog
+          event={editingEvent}
+          onClose={() => setEditingEvent(null)}
+          calendars={calendars}
+        />
       </Box>
     </Box>
   );
