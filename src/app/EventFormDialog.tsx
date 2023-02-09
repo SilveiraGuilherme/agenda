@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -32,17 +32,44 @@ interface IEventFormDialogProps {
   onSave: () => void;
 }
 
+interface IValidationErrors {
+  [field: string]: string;
+}
+
 export function EventFormDialog(props: IEventFormDialogProps) {
   const [event, setEvent] = useState<IEditingEvent | null>(props.event);
+  const [errors, setErrors] = useState<IValidationErrors>({});
+  const inputDate = useRef<HTMLInputElement | null>();
+  const inputDesc = useRef<HTMLInputElement | null>();
 
   useEffect(() => {
     setEvent(props.event);
+    setErrors({});
   }, [props.event]);
+
+  function validate(): boolean {
+    if (event) {
+      const currentErrors: IValidationErrors = {};
+      if (!event.date) {
+        currentErrors['date'] = 'Select a date';
+        inputDate.current?.focus();
+      }
+      if (!event.desc) {
+        currentErrors['desc'] = 'Add a description';
+        inputDesc.current?.focus();
+      }
+      setErrors(currentErrors);
+      return Object.keys(currentErrors).length === 0;
+    }
+    return false;
+  }
 
   function save(evt: React.FormEvent) {
     evt.preventDefault();
     if (event) {
-      createEventEndpoint(event).then(props.onSave);
+      if (validate()) {
+        createEventEndpoint(event).then(props.onSave);
+      }
     }
   }
 
@@ -61,6 +88,7 @@ export function EventFormDialog(props: IEventFormDialogProps) {
             {event && (
               <>
                 <TextField
+                  inputRef={inputDate}
                   type="date"
                   margin="normal"
                   label="Date"
@@ -70,8 +98,11 @@ export function EventFormDialog(props: IEventFormDialogProps) {
                   onChange={evt =>
                     setEvent({ ...event, date: evt.target.value })
                   }
+                  error={!!errors.date}
+                  helperText={errors.date}
                 ></TextField>
                 <TextField
+                  inputRef={inputDesc}
                   autoFocus
                   margin="normal"
                   label="Description"
@@ -81,6 +112,8 @@ export function EventFormDialog(props: IEventFormDialogProps) {
                   onChange={evt =>
                     setEvent({ ...event, desc: evt.target.value })
                   }
+                  error={!!errors.desc}
+                  helperText={errors.desc}
                 ></TextField>
                 <TextField
                   type="time"
