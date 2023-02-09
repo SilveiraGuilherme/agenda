@@ -90,11 +90,11 @@ To get and run a local copy of this project follow the instructions below.
    ```
 3. Run the backend inside the folder 'agenda-react-backend'
    ```sh
-   npm start
+   npm start -- noauth
    ```
 4. Run the project locally
    ```sh
-   npm start
+   npm start -- noauth
    ```
 
 <!-- ROADMAP -->
@@ -107,10 +107,10 @@ To get and run a local copy of this project follow the instructions below.
 - [x] Hide/show agendas.
 - [x] Add router.
 - [x] Add modules.
-- [ ] Create events.
-- [ ] Save data in the backend.
-- [ ] Validate form.
-- [ ] Edit events.
+- [x] Create events.
+- [x] Save data in the backend.
+- [x] Validate form.
+- [x] Edit events.
 
 See the [open issues](https://github.com/SilveiraGuilherme/agenda/issues) for a full list of proposed features (and known issues).
 
