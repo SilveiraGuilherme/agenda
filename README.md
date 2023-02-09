@@ -88,11 +88,15 @@ To get and run a local copy of this project follow the instructions below.
    ```sh
    npm install
    ```
-3. Run the backend inside the folder 'agenda-react-backend'
+3. Install packages inside the folder 'agenda-react-backend'
+   ```sh
+   npm install
+   ```
+4. Run the backend inside the folder 'agenda-react-backend'
    ```sh
    npm start -- noauth
    ```
-4. Run the project locally
+5. Run the project locally
    ```sh
    npm start -- noauth
    ```
