@@ -16,7 +16,7 @@ export interface IEvent extends IEditingEvent {
   id: number;
 }
 
-//const baseURL = 'http://localhost:8080';
+//LOCAL HOST: const baseURL = 'http://localhost:8080';
 const baseURL = 'https://agenda-backend-silveiraguilherme.glitch.me/';
 
 export function getCalendarsEndpoint(): Promise<ICalendar[]> {
