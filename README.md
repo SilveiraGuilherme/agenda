@@ -13,14 +13,14 @@
 <br />
 <br />
 
-  <a href="https://silveiraguilherme.github.io/agenda/">
+  <a href="agenda-jsguilherme.netlify.app">
     <img src="./public/img/agenda-logo.png" width="300px" alt="Agenda logo">
   </a>
 
   <p align="center">
     Agenda
     <br />
-    <a href="https://silveiraguilherme.github.io/agenda/">View Demo</a>
+    <a href="agenda-jsguilherme.netlify.app">View Demo</a>
     ·
     <a href="https://github.com/SilveiraGuilherme/agenda/issues/new">Report Bug</a>
   </p>
@@ -59,7 +59,7 @@
 
 ## About The Project
 
-[![Alt text](./public/img/agenda-website.png)](https://silveiraguilherme.github.io/agenda/)
+[![Alt text](./public/img/agenda-website.png)](agenda-jsguilherme.netlify.app)
 
 <!-- WEBSITE DESCRIPTION -->
 
@@ -141,7 +141,7 @@ Don't forget to give the project a star! Thanks again!
 ## Links
 
 - GitHub repository: [https://github.com/SilveiraGuilherme/agenda](https://github.com/SilveiraGuilherme/agenda)
-- Website: [agenda](https://silveiraguilherme.github.io/agenda/)
+- Website: [agenda](agenda-jsguilherme.netlify.app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
