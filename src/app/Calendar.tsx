@@ -12,10 +12,19 @@ const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 interface ICalendarProps {
   weeks: ICalendarCell[][];
+  onClickDay: (date: string) => void;
+  onClickEvent: (event: IEvent) => void;
 }
 
 export default function Calendar(props: ICalendarProps) {
   const { weeks } = props;
+
+  function handleClick(evt: React.MouseEvent, date: string) {
+    if (evt.target === evt.currentTarget) {
+      props.onClickDay(date);
+    }
+  }
+
   return (
     <TableContainer style={{ flex: '1' }} component={'section'}>
       <Table
@@ -62,6 +71,7 @@ export default function Calendar(props: ICalendarProps) {
                       }}
                       align="center"
                       key={cell.date}
+                      onClick={me => handleClick(me, cell.date)}
                     >
                       <Box
                         component={'div'}
@@ -88,6 +98,7 @@ export default function Calendar(props: ICalendarProps) {
                               whiteSpace: 'nowrap',
                               margin: '4px 0',
                             }}
+                            onClick={() => props.onClickEvent(event)}
                           >
                             {event.time && (
                               <>
