@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from '@mui/material';
 import Container from '@mui/material/Container';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IUser, signInEndpoint } from './backend';
 
 interface ILoginScreenProps {
@@ -23,8 +23,8 @@ export function LoginScreen(props: ILoginScreenProps) {
     <Container maxWidth="sm">
       <h1>Agenda React</h1>
       <p>
-        Type your email and password to access your agenda. To it out, use the
-        email <kbd>danilo@email.com</kbd> and the password <kbd>1234</kbd>.
+        Type your email and password to access your agenda. To try it out, use
+        the email <kbd>danilo@email.com</kbd> and the password <kbd>1234</kbd>.
       </p>
       <form onSubmit={signIn}>
         <TextField
