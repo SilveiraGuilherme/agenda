@@ -16,22 +16,31 @@ export interface IEvent extends IEditingEvent {
   id: number;
 }
 
+export interface IUser {
+  name: string;
+  password: string;
+}
+
 //LOCAL HOST: const baseURL = 'http://localhost:8080';
 //REMOTE: const baseURL = 'https://agenda-backend-silveiraguilherme.glitch.me/';
 const baseURL = 'http://localhost:8080';
 
 export function getCalendarsEndpoint(): Promise<ICalendar[]> {
-  return fetch(`${baseURL}/calendars`).then(handleResponse);
+  return fetch(`${baseURL}/calendars`, { credentials: 'include' }).then(
+    handleResponse
+  );
 }
 
 export function getEventsEndpoint(from: string, to: string): Promise<IEvent[]> {
   return fetch(
-    `${baseURL}/events?date_gte=${from}&date_lte=${to}&_sort=date,time`
+    `${baseURL}/events?date_gte=${from}&date_lte=${to}&_sort=date,time`,
+    { credentials: 'include' }
   ).then(handleResponse);
 }
 
 export function createEventEndpoint(event: IEditingEvent): Promise<IEvent> {
   return fetch(`${baseURL}/events`, {
+    credentials: 'include',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,6 +51,7 @@ export function createEventEndpoint(event: IEditingEvent): Promise<IEvent> {
 
 export function updateEventEndpoint(event: IEditingEvent): Promise<IEvent> {
   return fetch(`${baseURL}/events/${event.id}`, {
+    credentials: 'include',
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -52,12 +62,29 @@ export function updateEventEndpoint(event: IEditingEvent): Promise<IEvent> {
 
 export function deleteEventEndpoint(eventId: number): Promise<void> {
   return fetch(`${baseURL}/events/${eventId}`, {
+    credentials: 'include',
     method: 'DELETE',
   }).then(handleResponse);
 }
 
-export function getUserEndpoint(): Promise<void> {
-  return fetch(`${baseURL}/auth/user`, {}).then(handleResponse);
+export function getUserEndpoint(): Promise<IUser> {
+  return fetch(`${baseURL}/auth/user`, { credentials: 'include' }).then(
+    handleResponse
+  );
+}
+
+export function signInEndpoint(
+  email: string,
+  password: string
+): Promise<IUser> {
+  return fetch(`${baseURL}/auth/login`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  }).then(handleResponse);
 }
 
 function handleResponse(resp: Response) {
