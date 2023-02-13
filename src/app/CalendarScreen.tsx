@@ -7,7 +7,6 @@ import {
   ICalendar,
   IEvent,
   IEditingEvent,
-  IUser,
 } from './backend';
 import { useParams } from 'react-router-dom';
 import CalendarsView from './CalendarsView';
@@ -18,7 +17,6 @@ import { getToday } from './dateFunctions';
 
 interface ICalendarScreenProps {
   onSignOut: () => void;
-  user: IUser;
 }
 
 export default function CalendarScreen(props: ICalendarScreenProps) {
@@ -81,11 +79,7 @@ export default function CalendarScreen(props: ICalendarScreenProps) {
         />
       </Box>
       <Box component={'section'} display="flex" flex="1" flexDirection="column">
-        <CalendarHeader
-          month={month}
-          user={props.user}
-          onSignOut={props.onSignOut}
-        />
+        <CalendarHeader month={month} onSignOut={props.onSignOut} />
         <Calendar
           weeks={weeks}
           onClickDay={openNewEvent}

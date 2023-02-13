@@ -4,12 +4,10 @@ import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 import { addMonths, formatMonth } from './dateFunctions';
 import { UserMenu } from './UserMenu';
-import { IUser } from './backend';
 
 interface ICalendarHeaderProps {
   month: string;
   onSignOut: () => void;
-  user: IUser;
 }
 
 export default function CalendarHeader(props: ICalendarHeaderProps) {
@@ -40,7 +38,7 @@ export default function CalendarHeader(props: ICalendarHeaderProps) {
         {formatMonth(month)}
       </Box>
       <Box>
-        <UserMenu user={props.user} onSignOut={props.onSignOut} />
+        <UserMenu onSignOut={props.onSignOut} />
       </Box>
     </Box>
   );
