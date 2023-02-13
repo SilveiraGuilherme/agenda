@@ -17,20 +17,17 @@ export interface IEvent extends IEditingEvent {
 }
 
 //LOCAL HOST: const baseURL = 'http://localhost:8080';
-const baseURL = 'https://agenda-backend-silveiraguilherme.glitch.me/';
+//REMOTE: const baseURL = 'https://agenda-backend-silveiraguilherme.glitch.me/';
+const baseURL = 'http://localhost:8080';
 
 export function getCalendarsEndpoint(): Promise<ICalendar[]> {
-  return fetch(`${baseURL}/calendars`).then(resp => {
-    return resp.json();
-  });
+  return fetch(`${baseURL}/calendars`).then(handleResponse);
 }
 
 export function getEventsEndpoint(from: string, to: string): Promise<IEvent[]> {
   return fetch(
     `${baseURL}/events?date_gte=${from}&date_lte=${to}&_sort=date,time`
-  ).then(resp => {
-    return resp.json();
-  });
+  ).then(handleResponse);
 }
 
 export function createEventEndpoint(event: IEditingEvent): Promise<IEvent> {
@@ -40,9 +37,7 @@ export function createEventEndpoint(event: IEditingEvent): Promise<IEvent> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(event),
-  }).then(resp => {
-    return resp.json();
-  });
+  }).then(handleResponse);
 }
 
 export function updateEventEndpoint(event: IEditingEvent): Promise<IEvent> {
@@ -52,15 +47,23 @@ export function updateEventEndpoint(event: IEditingEvent): Promise<IEvent> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(event),
-  }).then(resp => {
-    return resp.json();
-  });
+  }).then(handleResponse);
 }
 
 export function deleteEventEndpoint(eventId: number): Promise<void> {
   return fetch(`${baseURL}/events/${eventId}`, {
     method: 'DELETE',
-  }).then(resp => {
+  }).then(handleResponse);
+}
+
+export function getUserEndpoint(): Promise<void> {
+  return fetch(`${baseURL}/auth/user`, {}).then(handleResponse);
+}
+
+function handleResponse(resp: Response) {
+  if (resp.ok) {
     return resp.json();
-  });
+  } else {
+    throw new Error(resp.statusText);
+  }
 }
