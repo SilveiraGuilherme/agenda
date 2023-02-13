@@ -18,12 +18,16 @@ function App() {
     getUserEndpoint().then(setUser, () => setUser(null));
   }, []);
 
+  function signOut() {
+    setUser(null);
+  }
+
   if (user) {
     return (
       <Router>
         <Switch>
           <Route path={'/calendar/:month'}>
-            <CalendarScreen />
+            <CalendarScreen user={user} onSignOut={signOut} />
           </Route>
           <Redirect to={{ pathname: '/calendar/' + month }}></Redirect>
         </Switch>

@@ -18,7 +18,7 @@ export interface IEvent extends IEditingEvent {
 
 export interface IUser {
   name: string;
-  password: string;
+  email: string;
 }
 
 //LOCAL HOST: const baseURL = 'http://localhost:8080';
@@ -84,6 +84,13 @@ export function signInEndpoint(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
+  }).then(handleResponse);
+}
+
+export function signOutEndpoint(): Promise<IUser> {
+  return fetch(`${baseURL}/auth/logout`, {
+    credentials: 'include',
+    method: 'POST',
   }).then(handleResponse);
 }
 
