@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { ICalendar } from './backend';
+import React from 'react';
 
 interface ICalendarsViewProps {
   calendars: ICalendar[];
@@ -9,7 +10,9 @@ interface ICalendarsViewProps {
   calendarsSelected: boolean[];
 }
 
-export default function CalendarView(props: ICalendarsViewProps) {
+export const CalendarsView = React.memo(function CalendarsView(
+  props: ICalendarsViewProps
+) {
   const { calendars, calendarsSelected, toggleCalendar } = props;
   return (
     <Box marginTop="64px">
@@ -29,4 +32,4 @@ export default function CalendarView(props: ICalendarsViewProps) {
       ))}
     </Box>
   );
-}
+});
