@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Icon from '@material-ui/core/Icon';
 import { ICalendar, IEvent } from './backend';
+import { getToday } from './dateFunctions';
 
 const DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -60,6 +61,18 @@ export default function Calendar(props: ICalendarProps) {
             return (
               <TableRow key={i}>
                 {week.map(cell => {
+                  const todayStyle = {
+                    backgroundColor: '#1976d2',
+                    color: 'white',
+                  };
+                  const dayOfMonthStyle = {
+                    display: 'inline-block',
+                    width: '24px',
+                    lineHeight: '24px',
+                    fontWeigth: 500,
+                    marginBottom: '4px',
+                    borderRadius: '50%',
+                  };
                   return (
                     <TableCell
                       sx={{
@@ -74,11 +87,11 @@ export default function Calendar(props: ICalendarProps) {
                       onClick={me => handleClick(me, cell.date)}
                     >
                       <Box
-                        component={'div'}
-                        sx={{
-                          fontWeight: 500,
-                          marginBottom: '4px',
-                        }}
+                        sx={
+                          cell.date === getToday()
+                            ? { ...dayOfMonthStyle, ...todayStyle }
+                            : dayOfMonthStyle
+                        }
                       >
                         {cell.dayOfMonth}
                       </Box>

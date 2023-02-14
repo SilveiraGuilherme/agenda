@@ -1,14 +1,11 @@
 import { Avatar, Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
 import { useContext, useState } from 'react';
-import { userContext } from './authContext';
+import { authContext } from './authContext';
 import { signOutEndpoint } from './backend';
 
-interface IUserMenu {
-  onSignOut: () => void;
-}
+export function UserMenu() {
+  const { user, onSignOut } = useContext(authContext);
 
-export function UserMenu(props: IUserMenu) {
-  const user = useContext(userContext);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +17,7 @@ export function UserMenu(props: IUserMenu) {
 
   function signOut() {
     signOutEndpoint();
-    props.onSignOut();
+    onSignOut();
   }
 
   return (
