@@ -74,7 +74,7 @@ export default function CalendarScreen() {
 
   const closeDialog = useCallback(() => {
     dispatch({ type: 'closeDialog' });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box display="flex" height="100%" alignItems="stretch">
