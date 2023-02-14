@@ -15,9 +15,7 @@ import { EventFormDialog } from './EventFormDialog';
 import { getToday } from './dateFunctions';
 import { reducer } from './calendarScreenReducer';
 
-export default function CalendarScreen() {
-  const { month } = useParams<{ month: string }>();
-
+function useCalendarScreenState(month: string) {
   const [state, dispatch] = useReducer(reducer, {
     calendars: [],
     calendarsSelected: [],
@@ -37,7 +35,6 @@ export default function CalendarScreen() {
 
   const firstDay = weeks[0][0].date;
   const lastDay = weeks[weeks.length - 1][6].date;
-
   useEffect(() => {
     Promise.all([
       getCalendarsEndpoint(),
@@ -52,6 +49,28 @@ export default function CalendarScreen() {
       dispatch({ type: 'load', payload: { events } });
     });
   }
+
+  return {
+    weeks,
+    calendars,
+    dispatch,
+    refreshEvents,
+    calendarsSelected,
+    editingEvent,
+  };
+}
+
+export default function CalendarScreen() {
+  const { month } = useParams<{ month: string }>();
+
+  const {
+    weeks,
+    calendars,
+    dispatch,
+    refreshEvents,
+    calendarsSelected,
+    editingEvent,
+  } = useCalendarScreenState(month);
 
   const closeDialog = useCallback(() => {
     dispatch({ type: 'closeDialog' });

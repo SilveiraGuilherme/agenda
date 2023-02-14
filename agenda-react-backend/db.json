@@ -34,7 +34,7 @@
     },
     {
       "id": 4,
-      "date": "2021-06-03",
+      "date": "2021-06-04",
       "desc": "Entrega do projeto",
       "calendarId": 2,
       "calendar": {
@@ -97,12 +97,6 @@
     },
     {
       "id": 16
-    },
-    {
-      "date": "2021-06-03",
-      "desc": "fdfd",
-      "calendarId": 1,
-      "id": 17
     }
   ]
 }

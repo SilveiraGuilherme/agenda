@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContext } from 'react';
 import { IUser } from './backend';
 
 interface IAuthContext {
@@ -13,3 +14,7 @@ export const authContext = React.createContext<IAuthContext>({
   },
   onSignOut: () => {},
 });
+
+export function useAuthContext() {
+  return useContext(authContext);
+}

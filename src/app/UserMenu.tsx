@@ -1,10 +1,10 @@
 import { Avatar, Box, Icon, IconButton, Menu, MenuItem } from '@mui/material';
-import { useContext, useState } from 'react';
-import { authContext } from './authContext';
+import { useState } from 'react';
+import { useAuthContext } from './authContext';
 import { signOutEndpoint } from './backend';
 
 export function UserMenu() {
-  const { user, onSignOut } = useContext(authContext);
+  const { user, onSignOut } = useAuthContext();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
