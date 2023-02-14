@@ -6,7 +6,6 @@ import {
   getEventsEndpoint,
   ICalendar,
   IEvent,
-  IEditingEvent,
 } from './backend';
 import { useParams } from 'react-router-dom';
 import { CalendarsView } from './CalendarsView';
@@ -14,84 +13,7 @@ import { CalendarHeader } from './CalendarHeader';
 import { Calendar, ICalendarCell, IEventWithCalendar } from './Calendar';
 import { EventFormDialog } from './EventFormDialog';
 import { getToday } from './dateFunctions';
-
-interface ICalendarScreenState {
-  calendars: ICalendar[];
-  calendarsSelected: boolean[];
-  events: IEvent[];
-  editingEvent: IEditingEvent | null;
-}
-
-type ICalendarScreenAction =
-  | {
-      type: 'load';
-      payload: {
-        events: IEvent[];
-        calendars?: ICalendar[];
-      };
-    }
-  | {
-      type: 'new';
-      payload: string;
-    }
-  | {
-      type: 'edit';
-      payload: IEditingEvent;
-    }
-  | {
-      type: 'closeDialog';
-    }
-  | {
-      type: 'toggleCalendar';
-      payload: number;
-    };
-
-function reducer(
-  state: ICalendarScreenState,
-  action: ICalendarScreenAction
-): ICalendarScreenState {
-  switch (action.type) {
-    case 'load':
-      const calendars = action.payload.calendars ?? state.calendars;
-      const selected = action.payload.calendars
-        ? action.payload.calendars.map(() => true)
-        : state.calendarsSelected;
-      return {
-        ...state,
-        events: action.payload.events,
-        calendars,
-        calendarsSelected: selected,
-      };
-    case 'new':
-      return {
-        ...state,
-        editingEvent: {
-          date: action.payload,
-          desc: '',
-          calendarId: state.calendars[0].id,
-        },
-      };
-    case 'edit':
-      return {
-        ...state,
-        editingEvent: action.payload,
-      };
-    case 'closeDialog':
-      return {
-        ...state,
-        editingEvent: null,
-      };
-    case 'toggleCalendar':
-      const calendarsSelected = [...state.calendarsSelected];
-      calendarsSelected[action.payload] = !calendarsSelected[action.payload];
-      return {
-        ...state,
-        calendarsSelected,
-      };
-    default:
-      return state;
-  }
-}
+import { reducer } from './calendarScreenReducer';
 
 export default function CalendarScreen() {
   const { month } = useParams<{ month: string }>();
@@ -131,18 +53,6 @@ export default function CalendarScreen() {
     });
   }
 
-  const toggleCalendar = useCallback((i: number) => {
-    dispatch({ type: 'toggleCalendar', payload: i });
-  }, []);
-
-  const openNewEvent = useCallback((date: string) => {
-    dispatch({ type: 'new', payload: date });
-  }, []);
-
-  const editEvent = useCallback((event: IEvent) => {
-    dispatch({ type: 'edit', payload: event });
-  }, []);
-
   const closeDialog = useCallback(() => {
     dispatch({ type: 'closeDialog' });
   }, []);
@@ -151,22 +61,21 @@ export default function CalendarScreen() {
     <Box display="flex" height="100%" alignItems="stretch">
       <Box component={'section'} width="12em" padding="8px 16px">
         <h2>Agenda React</h2>
-        <Button variant="contained" onClick={() => openNewEvent(getToday())}>
+        <Button
+          variant="contained"
+          onClick={() => dispatch({ type: 'new', payload: getToday() })}
+        >
           New Event
         </Button>
         <CalendarsView
           calendars={calendars}
-          toggleCalendar={toggleCalendar}
+          dispatch={dispatch}
           calendarsSelected={calendarsSelected}
         />
       </Box>
       <Box component={'section'} display="flex" flex="1" flexDirection="column">
         <CalendarHeader month={month} />
-        <Calendar
-          weeks={weeks}
-          onClickDay={openNewEvent}
-          onClickEvent={editEvent}
-        />
+        <Calendar weeks={weeks} dispatch={dispatch} />
         <EventFormDialog
           event={editingEvent}
           onCancel={closeDialog}
