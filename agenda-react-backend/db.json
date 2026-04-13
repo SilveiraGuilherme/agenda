@@ -26,13 +26,6 @@
       "calendarId": 1
     },
     {
-      "id": 3,
-      "date": "2021-06-03",
-      "desc": "Consulta ortopedista",
-      "time": "08:30",
-      "calendarId": 1
-    },
-    {
       "id": 4,
       "date": "2021-06-04",
       "desc": "Entrega do projeto",
@@ -97,6 +90,23 @@
     },
     {
       "id": 16
+    },
+    {
+      "date": "2021-06-03",
+      "desc": "Meeting",
+      "calendarId": 1,
+      "id": 17
+    },
+    {
+      "date": "2021-06-05",
+      "desc": "Meeting",
+      "calendarId": 1,
+      "id": 18,
+      "calendar": {
+        "id": 2,
+        "name": "Work",
+        "color": "#7CB342"
+      }
     }
   ]
 }
