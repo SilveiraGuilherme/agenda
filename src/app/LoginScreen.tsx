@@ -8,7 +8,7 @@ interface ILoginScreenProps {
 }
 
 export function LoginScreen(props: ILoginScreenProps) {
-  const [email, setEmail] = useState('danilo@email.com');
+  const [email, setEmail] = useState('guilherme@email.com');
   const [password, setPassword] = useState('1234');
   const [error, setError] = useState('');
 
@@ -24,7 +24,7 @@ export function LoginScreen(props: ILoginScreenProps) {
       <h1>Agenda React</h1>
       <p>
         Type your email and password to access your agenda. To try it out, use
-        the email <kbd>danilo@email.com</kbd> and the password <kbd>1234</kbd>.
+        the email <kbd>guilherme@email.com</kbd> and the password <kbd>1234</kbd>.
       </p>
       <form onSubmit={signIn}>
         <TextField
