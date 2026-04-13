@@ -9,11 +9,38 @@ const jsonServer = require("json-server");
 const session = require("express-session");
 
 const server = jsonServer.create();
+const isProduction = process.env.NODE_ENV === "production";
 
 const router = jsonServer.router("./db.json");
 const userdb = JSON.parse(fs.readFileSync("./users.json", "UTF-8"));
 
+server.set("trust proxy", 1);
 server.use(jsonServer.defaults());
+
+server.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Vary", "Origin");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    );
+  }
+
+  if (req.method === "OPTIONS") {
+    res.sendStatus(204);
+    return;
+  }
+
+  next();
+});
+
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
@@ -27,6 +54,10 @@ server.use(
     secret: SECRET_KEY,
     resave: false,
     saveUninitialized: false /*, cookie: {maxAge: 5000}*/,
+    cookie: {
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
+    },
   })
 );
 

@@ -21,9 +21,27 @@ export interface IUser {
   email: string;
 }
 
-//LOCAL HOST: const baseURL = 'http://localhost:8080';
-//REMOTE: const baseURL = 'https://agenda-backend-silveiraguilherme.glitch.me/';
-const baseURL = 'http://localhost:8080';
+const localBaseURL = 'http://localhost:8080';
+const remoteBaseURL = 'https://agenda-backend-silveiraguilherme.glitch.me';
+
+function getBaseURL() {
+  const configuredBaseURL = process.env.REACT_APP_API_BASE_URL;
+  if (configuredBaseURL) {
+    return configuredBaseURL;
+  }
+
+  if (
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1')
+  ) {
+    return localBaseURL;
+  }
+
+  return remoteBaseURL;
+}
+
+const baseURL = getBaseURL();
 
 export function getCalendarsEndpoint(): Promise<ICalendar[]> {
   return fetch(`${baseURL}/calendars`, { credentials: 'include' }).then(

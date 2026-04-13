@@ -101,6 +101,15 @@ To get and run a local copy of this project follow the instructions below.
    npm start -- noauth
    ```
 
+### Local vs Netlify
+
+The frontend now chooses the backend automatically:
+
+- locally, it uses `http://localhost:8080`
+- on Netlify, it uses `https://agenda-backend-silveiraguilherme.glitch.me`
+
+If you ever need to point the frontend to another backend, set the environment variable `REACT_APP_API_BASE_URL`.
+
 <!-- ROADMAP -->
 
 ## Roadmap
