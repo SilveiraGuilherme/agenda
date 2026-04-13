@@ -108,7 +108,12 @@ The frontend now chooses the backend automatically:
 - locally, it uses `http://localhost:8080`
 - on Netlify, it uses `https://agenda-backend-silveiraguilherme.glitch.me`
 
-If you ever need to point the frontend to another backend, set the environment variable `REACT_APP_API_BASE_URL`.
+If you want Netlify to use a different backend, set this environment variable in your site settings:
+
+- key: `REACT_APP_API_BASE_URL`
+- value: your backend URL, for example `https://agenda-backend-silveiraguilherme.glitch.me`
+
+After changing it, trigger a new deploy so Netlify rebuilds the app with the new value.
 
 <!-- ROADMAP -->
 
