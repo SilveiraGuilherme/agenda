@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useEffect, useMemo, useReducer, useCallback } from 'react';
+import { useEffect, useMemo, useReducer, useCallback, useState } from 'react';
 import {
   getCalendarsEndpoint,
   getEventsEndpoint,
@@ -14,6 +14,9 @@ import { Calendar, ICalendarCell, IEventWithCalendar } from './Calendar';
 import { EventFormDialog } from './EventFormDialog';
 import { getToday } from './dateFunctions';
 import { reducer } from './calendarScreenReducer';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@material-ui/core/Icon';
 
 function useCalendarScreenState(month: string) {
   const [state, dispatch] = useReducer(reducer, {
@@ -62,6 +65,7 @@ function useCalendarScreenState(month: string) {
 
 export default function CalendarScreen() {
   const { month } = useParams<{ month: string }>();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const {
     weeks,
@@ -76,11 +80,39 @@ export default function CalendarScreen() {
     dispatch({ type: 'closeDialog' });
   }, [dispatch]);
 
+  const sidebarContent = (
+    <Box component={'section'} padding="8px 16px" width="12em">
+      <h2>Agenda React</h2>
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={() => {
+          dispatch({ type: 'new', payload: getToday() });
+          setDrawerOpen(false);
+        }}
+      >
+        New Event
+      </Button>
+      <CalendarsView
+        calendars={calendars}
+        dispatch={dispatch}
+        calendarsSelected={calendarsSelected}
+      />
+    </Box>
+  );
+
   return (
     <Box display="flex" height="100%" alignItems="stretch">
-      <Box component={'section'} width="12em" padding="8px 16px">
+      {/* Desktop Sidebar */}
+      <Box
+        component={'section'}
+        width="12em"
+        padding="8px 16px"
+        sx={{ display: { xs: 'none', md: 'block' } }}
+      >
         <h2>Agenda React</h2>
         <Button
+          fullWidth
           variant="contained"
           onClick={() => dispatch({ type: 'new', payload: getToday() })}
         >
@@ -92,7 +124,28 @@ export default function CalendarScreen() {
           calendarsSelected={calendarsSelected}
         />
       </Box>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        {sidebarContent}
+      </Drawer>
+
+      {/* Main Calendar Section */}
       <Box component={'section'} display="flex" flex="1" flexDirection="column">
+        {/* Hamburger Menu for Mobile */}
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', paddingLeft: '8px' }}>
+          <IconButton
+            onClick={() => setDrawerOpen(true)}
+            size="large"
+          >
+            <MenuIcon fontSize="inherit">menu</MenuIcon>
+          </IconButton>
+        </Box>
+
         <CalendarHeader month={month} />
         <Calendar weeks={weeks} dispatch={dispatch} />
         <EventFormDialog

@@ -166,9 +166,14 @@
     {
       "date": "2026-04-15",
       "time": "22:00",
-      "desc": "Go to bed",
+      "desc": "Go to bed consistently",
       "calendarId": 1,
-      "id": 32
+      "id": 32,
+      "calendar": {
+        "id": 1,
+        "name": "Personal",
+        "color": "#8E24AA"
+      }
     },
     {
       "date": "2026-04-15",

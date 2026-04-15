@@ -28,10 +28,17 @@ export const Calendar = React.memo(function Calendar(props: ICalendarProps) {
   }
 
   return (
-    <TableContainer style={{ flex: '1' }} component={'section'}>
+    <TableContainer
+      component={'section'}
+      sx={{
+        flex: 1,
+        overflowX: 'hidden',
+      }}
+    >
       <Table
         sx={{
           minHeight: '100%',
+          minWidth: '100%',
           borderRight: 1,
           borderTop: 1,
           borderColor: 'grey.300',
@@ -125,26 +132,43 @@ export const Calendar = React.memo(function Calendar(props: ICalendarProps) {
                               component={'button'}
                               key={event.id}
                               sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'left',
                                 background: 'none',
                                 border: 'none',
                                 cursor: 'pointer',
+                                display: 'block',
+                                width: '100%',
+                                textAlign: 'left',
                                 whiteSpace: 'nowrap',
                                 margin: '4px 0',
+                                overflowX: 'auto',
+                                overflowY: 'hidden',
+                                WebkitOverflowScrolling: 'touch',
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none',
+                                '&::-webkit-scrollbar': {
+                                  display: 'none',
+                                  height: 0,
+                                },
                               }}
                               onClick={() =>
                                 props.dispatch({ type: 'edit', payload: event })
                               }
                             >
-                              <Icon style={{ color }} fontSize="inherit">
-                                watch_later
-                              </Icon>
-                              <Box component={'span'} margin="0 4px">
-                                {displayTime}
+                              <Box
+                                sx={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  minWidth: 'max-content',
+                                }}
+                              >
+                                <Icon style={{ color }} fontSize="inherit">
+                                  watch_later
+                                </Icon>
+                                <Box component={'span'} margin="0 4px">
+                                  {displayTime}
+                                </Box>
+                                <span>{event.desc}</span>
                               </Box>
-                              <span>{event.desc}</span>
                             </Box>
                           );
                         })}
