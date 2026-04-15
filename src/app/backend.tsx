@@ -22,14 +22,9 @@ export interface IUser {
 }
 
 const localBaseURL = 'http://localhost:8080';
-const remoteBaseURL = 'https://agenda-backend-silveiraguilherme.glitch.me';
+const productionBaseURL = '/api';
 
 function getBaseURL() {
-  const configuredBaseURL = process.env.REACT_APP_API_BASE_URL;
-  if (configuredBaseURL) {
-    return configuredBaseURL;
-  }
-
   if (
     typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' ||
@@ -38,7 +33,12 @@ function getBaseURL() {
     return localBaseURL;
   }
 
-  return remoteBaseURL;
+  const configuredBaseURL = process.env.REACT_APP_API_BASE_URL;
+  if (configuredBaseURL) {
+    return configuredBaseURL;
+  }
+
+  return productionBaseURL;
 }
 
 const baseURL = getBaseURL();

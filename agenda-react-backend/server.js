@@ -7,6 +7,7 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const jsonServer = require("json-server");
 const session = require("express-session");
+const FileStore = require("session-file-store")(session);
 
 const server = jsonServer.create();
 const isProduction = process.env.NODE_ENV === "production";
@@ -48,10 +49,14 @@ server.get("/calendar/:month", function (req, res) {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-const SECRET_KEY = "123456789";
+const SECRET_KEY = process.env.SECRET_KEY || "123456789";
 server.use(
   session({
     secret: SECRET_KEY,
+    store: new FileStore({
+      path: "./.sessions",
+      retries: 1,
+    }),
     resave: false,
     saveUninitialized: false /*, cookie: {maxAge: 5000}*/,
     cookie: {
