@@ -81,6 +81,7 @@ export const Calendar = React.memo(function Calendar(props: ICalendarProps) {
                         borderColor: 'grey.300',
                         verticalAlign: 'top',
                         overflow: 'hidden',
+                        height: '8.5rem',
                         padding: '8px 4px',
                       }}
                       align="center"
@@ -96,54 +97,58 @@ export const Calendar = React.memo(function Calendar(props: ICalendarProps) {
                       >
                         {cell.dayOfMonth}
                       </Box>
-                      {cell.events.map(event => {
-                        const color = event.calendar.color;
-                        return (
-                          <Box
-                            component={'button'}
-                            key={event.id}
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'left',
-                              background: 'none',
-                              border: 'none',
-                              cursor: 'pointer',
-                              whiteSpace: 'nowrap',
-                              margin: '4px 0',
-                            }}
-                            onClick={() =>
-                              props.dispatch({ type: 'edit', payload: event })
-                            }
-                          >
-                            {event.time && (
-                              <>
-                                <Icon style={{ color }} fontSize="inherit">
-                                  watch_later
-                                </Icon>
-                                <Box component={'span'} margin="0 4px">
-                                  {event.time}
-                                </Box>
-                              </>
-                            )}
-                            {event.time ? (
+                      <Box
+                        sx={{
+                          maxHeight: '5.8rem',
+                          overflowY: 'scroll',
+                          overflowX: 'hidden',
+                          scrollbarWidth: 'auto',
+                          scrollbarGutter: 'stable',
+                          '&::-webkit-scrollbar': {
+                            width: '5px',
+                          },
+                          '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: '#999',
+                            borderRadius: '4px',
+                            minHeight: '40px',
+                          },
+                          '&::-webkit-scrollbar-track': {
+                            backgroundColor: 'transparent',
+                          },
+                        }}
+                      >
+                        {[...cell.events].sort(compareEventsByTime).map(event => {
+                          const color = event.calendar.color;
+                          const displayTime = event.time || '12:30';
+                          return (
+                            <Box
+                              component={'button'}
+                              key={event.id}
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'left',
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                whiteSpace: 'nowrap',
+                                margin: '4px 0',
+                              }}
+                              onClick={() =>
+                                props.dispatch({ type: 'edit', payload: event })
+                              }
+                            >
+                              <Icon style={{ color }} fontSize="inherit">
+                                watch_later
+                              </Icon>
+                              <Box component={'span'} margin="0 4px">
+                                {displayTime}
+                              </Box>
                               <span>{event.desc}</span>
-                            ) : (
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  backgroundColor: color,
-                                  color: 'white',
-                                  padding: '2px 4px',
-                                  borderRadius: '4px',
-                                }}
-                              >
-                                {event.desc}
-                              </span>
-                            )}
-                          </Box>
-                        );
-                      })}
+                            </Box>
+                          );
+                        })}
+                      </Box>
                     </TableCell>
                   );
                 })}
@@ -162,4 +167,10 @@ export interface ICalendarCell {
   date: string;
   dayOfMonth: number;
   events: IEventWithCalendar[];
+}
+
+function compareEventsByTime(a: IEventWithCalendar, b: IEventWithCalendar) {
+  const timeA = a.time || '99:99';
+  const timeB = b.time || '99:99';
+  return timeA.localeCompare(timeB);
 }

@@ -45,8 +45,8 @@ function useCalendarScreenState(month: string) {
   }, [firstDay, lastDay]);
 
   function refreshEvents() {
-    getEventsEndpoint(firstDay, lastDay).then(() => {
-      dispatch({ type: 'load', payload: { events } });
+    getEventsEndpoint(firstDay, lastDay).then(fetchedEvents => {
+      dispatch({ type: 'load', payload: { events: fetchedEvents } });
     });
   }
 

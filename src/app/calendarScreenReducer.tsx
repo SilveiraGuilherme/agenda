@@ -52,6 +52,7 @@ export function reducer(
         ...state,
         editingEvent: {
           date: action.payload,
+          time: '12:30',
           desc: '',
           calendarId: state.calendars[0].id,
         },

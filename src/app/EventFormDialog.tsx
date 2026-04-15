@@ -43,6 +43,14 @@ interface IValidationErrors {
   [field: string]: string;
 }
 
+const TIME_OPTIONS = Array.from({ length: 48 }, (_, index) => {
+  const hours = Math.floor(index / 2)
+    .toString()
+    .padStart(2, '0');
+  const minutes = index % 2 === 0 ? '00' : '30';
+  return `${hours}:${minutes}`;
+});
+
 export function EventFormDialog(props: IEventFormDialogProps) {
   const [event, setEvent] = useState<IEditingEvent | null>(props.event);
   const [errors, setErrors] = useState<IValidationErrors>({});
@@ -98,6 +106,8 @@ export function EventFormDialog(props: IEventFormDialogProps) {
         open={!!event}
         TransitionComponent={Transition}
         keepMounted
+        fullWidth
+        maxWidth="sm"
         onClose={props.onCancel}
         aria-describedby="alert-dialog-slide-description"
       >
@@ -113,6 +123,7 @@ export function EventFormDialog(props: IEventFormDialogProps) {
                   label="Date"
                   fullWidth
                   variant="standard"
+                  InputLabelProps={{ shrink: true }}
                   value={event.date}
                   onChange={evt =>
                     setEvent({ ...event, date: evt.target.value })
@@ -134,17 +145,30 @@ export function EventFormDialog(props: IEventFormDialogProps) {
                   error={!!errors.desc}
                   helperText={errors.desc}
                 ></TextField>
-                <TextField
-                  type="time"
-                  margin="normal"
-                  label="Time"
-                  fullWidth
-                  variant="standard"
-                  value={event.time ?? ''}
-                  onChange={evt =>
-                    setEvent({ ...event, time: evt.target.value })
-                  }
-                ></TextField>
+                <FormControl margin="normal" variant="standard" fullWidth>
+                  <InputLabel id="select-time">Time</InputLabel>
+                  <Select
+                    labelId="select-time"
+                    value={event.time ?? ''}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          maxHeight: 280,
+                        },
+                      },
+                    }}
+                    onChange={evt =>
+                      setEvent({ ...event, time: evt.target.value as string })
+                    }
+                  >
+                    <MenuItem value="">No time</MenuItem>
+                    {TIME_OPTIONS.map(time => (
+                      <MenuItem key={time} value={time}>
+                        {time}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
                 <FormControl variant="standard" fullWidth>
                   <InputLabel id="select-calendar">Agenda</InputLabel>
                   <Select
