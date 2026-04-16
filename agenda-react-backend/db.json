@@ -109,101 +109,74 @@
       }
     },
     {
-      "date": "2026-04-15",
-      "desc": "New meeting",
-      "calendarId": 2,
-      "time": "12:40",
-      "id": 20
-    },
-    {
-      "date": "2026-04-15",
-      "desc": "work",
+      "date": "2026-04-07",
+      "time": "13:00",
+      "desc": "Doctor's Appointment",
       "calendarId": 1,
-      "time": "11:50",
-      "id": 22
+      "id": 19
     },
     {
       "date": "2026-04-07",
-      "desc": "gfgf",
+      "time": "16:00",
+      "desc": "Staff Training",
+      "calendarId": 2,
+      "id": 20
+    },
+    {
+      "date": "2026-04-07",
+      "time": "19:00",
+      "desc": "Book Club",
       "calendarId": 1,
+      "id": 21
+    },
+    {
+      "date": "2026-04-13",
+      "time": "09:30",
+      "desc": "Crossfit Class",
+      "calendarId": 1,
+      "id": 22
+    },
+    {
+      "date": "2026-04-16",
+      "time": "19:00",
+      "desc": "Movie Night",
+      "calendarId": 1,
+      "id": 23
+    },
+    {
+      "date": "2026-04-17",
+      "time": "12:00",
+      "desc": "Crossfit Class",
+      "calendarId": 1,
+      "id": 24
+    },
+    {
+      "date": "2026-04-17",
+      "time": "19:00",
+      "desc": "Chloe's Birthday Party",
+      "calendarId": 1,
+      "id": 25
+    },
+    {
+      "date": "2026-04-21",
+      "time": "14:00",
+      "desc": "Meeting with the boss",
+      "calendarId": 2,
       "id": 26
     },
     {
-      "date": "2026-04-11",
-      "desc": "ugh",
+      "date": "2026-04-21",
+      "time": "18:00",
+      "desc": "Dinner with Jhon",
       "calendarId": 1,
-      "time": "12:40",
       "id": 27
     },
     {
-      "date": "2026-04-15",
-      "time": "05:30",
-      "desc": "Meeting",
-      "calendarId": 1,
-      "id": 28
-    },
-    {
-      "date": "2026-04-15",
-      "time": "18:00",
-      "desc": "cross",
-      "calendarId": 1,
-      "id": 29
-    },
-    {
-      "date": "2026-04-15",
-      "time": "21:00",
-      "desc": "Studying",
+      "date": "2026-04-23",
+      "time": "15:00",
+      "desc": "Prepare Presentations",
       "calendarId": 2,
-      "id": 30
-    },
-    {
-      "date": "2026-04-15",
-      "time": "04:30",
-      "desc": "wake up",
-      "calendarId": 1,
-      "id": 31
-    },
-    {
-      "date": "2026-04-15",
-      "time": "17:00",
-      "desc": "eat",
-      "calendarId": 1,
-      "id": 33
-    },
-    {
-      "date": "2026-04-16",
-      "time": "12:30",
-      "desc": "a",
-      "calendarId": 1,
-      "id": 34
-    },
-    {
-      "date": "2026-04-16",
-      "time": "13:00",
-      "desc": "b",
-      "calendarId": 1,
-      "id": 35
-    },
-    {
-      "date": "2026-04-16",
-      "time": "11:00",
-      "desc": "c",
-      "calendarId": 1,
-      "id": 36
-    },
-    {
-      "date": "2026-04-16",
-      "time": "10:30",
-      "desc": "d",
-      "calendarId": 1,
-      "id": 37
-    },
-    {
-      "date": "2026-04-16",
-      "time": "12:30",
-      "desc": "dd",
-      "calendarId": 1,
-      "id": 38
+      "id": 28
     }
   ]
 }
