@@ -1,7 +1,5 @@
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
-
 <div align="center">
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -26,145 +24,105 @@
   </p>
 </div>
 
-<br/>
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#requirements">Requirements</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#links">Links</a></li>
-  </ol>
-</details>
+## About the project
 
-<br/>
+[![Agenda preview](./public/img/agenda-website.png)](https://agenda-jsguilherme.netlify.app)
 
-<!-- ABOUT THE PROJECT -->
+Agenda is a calendar web app where users can log in and manage events by date, time, description, and calendar.
 
-## About The Project
+Recent updates include:
+- backend migration from Glitch to Render,
+- Netlify API proxy for stable auth cookies,
+- improved event form UX,
+- responsive sidebar with mobile drawer,
+- better calendar scrolling behavior and event ordering by time.
 
-[![Alt text](./public/img/agenda-website.png)](https://agenda-jsguilherme.netlify.app)
+## Tech stack
 
-<!-- WEBSITE DESCRIPTION -->
+- React + TypeScript
+- Material UI
+- Node.js + Express + json-server
+- express-session + session-file-store
+- Netlify (frontend)
+- Render (backend)
 
-This is a web agenda that allows users to add, edit and remove events and reminders containing information of their preference, which can be very usefull for planning.
+## Project structure
 
-### Built With
+- Frontend: root folder
+- Backend: [agenda-react-backend](agenda-react-backend)
 
-- <strong>React</strong> for UI building.
-- <strong>Node.js</strong> for server-side programming.
-- <strong>Material-UI</strong> for UI styling.
-- <strong>TypeScript, HTML, CSS</strong> as a general stack to build web applications.
+## Running locally
 
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-To get and run a local copy of this project follow the instructions below.
-
-### Installation
-
-1. Clone the repo
+1. Clone the repository
    ```sh
    git clone https://github.com/SilveiraGuilherme/agenda.git
+   cd agenda
    ```
-2. Install packages
+2. Install frontend dependencies
    ```sh
    npm install
    ```
-3. Install packages inside the folder 'agenda-react-backend'
+3. Install backend dependencies
    ```sh
+   cd agenda-react-backend
    npm install
    ```
-4. Run the backend inside the folder 'agenda-react-backend'
+4. Start backend (port 8080)
    ```sh
-   npm start -- noauth
+   npm start -- --noauth
    ```
-5. Run the project locally
+5. Start frontend (in a new terminal, from project root)
    ```sh
-   npm start -- noauth
+   npm start
    ```
 
-### Local vs Netlify
+## API base URL behavior
 
-The frontend now chooses the backend automatically:
+The frontend selects API base URL automatically:
 
-- locally, it uses `http://localhost:8080`
-- on Netlify, it uses `https://agenda-backend-silveiraguilherme.glitch.me`
+- local development: `http://localhost:8080`
+- production: `/api` (via Netlify rewrite/proxy)
 
-If you want Netlify to use a different backend, set this environment variable in your site settings:
+Optional override:
 
-- key: `REACT_APP_API_BASE_URL`
-- value: your backend URL, for example `https://agenda-backend-silveiraguilherme.glitch.me`
+- `REACT_APP_API_BASE_URL=https://your-backend-url`
 
-After changing it, trigger a new deploy so Netlify rebuilds the app with the new value.
+## Deployment notes
 
-<!-- ROADMAP -->
+- Frontend is deployed on Netlify.
+- Backend is deployed on Render.
+- In production, requests go through Netlify rewrite rules in [netlify.toml](netlify.toml) to keep auth/session behavior consistent across browsers.
 
-## Roadmap
+## Features
 
-- [x] Create calendar dinamically.
-- [x] Load events from the backend.
-- [x] Load agendas from the backend.
-- [x] Hide/show agendas.
-- [x] Add router.
-- [x] Add modules.
-- [x] Create events.
-- [x] Save data in the backend.
-- [x] Validate form.
-- [x] Edit events.
-
-See the [open issues](https://github.com/SilveiraGuilherme/agenda/issues) for a full list of proposed features (and known issues).
-
-<!-- CONTRIBUTING -->
+- Month calendar view
+- Event creation and editing
+- Calendar filtering (show/hide calendars)
+- Events sorted by time within each day
+- Responsive layout (desktop sidebar + mobile drawer)
+- Scrollable day cells for dense event lists
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are welcome.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- CONTACT -->
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to your branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
 
 ## Author
 
 [Guilherme Silveira](https://silveiraguilherme.github.io/SilveiraGuilherme/) |
 [LinkedIn](https://linkedin.com/in/jsguilherme)
 
-<!-- RESOURCES -->
-
 ## Links
 
-- GitHub repository: [https://github.com/SilveiraGuilherme/agenda](https://github.com/SilveiraGuilherme/agenda)
-- Website: [agenda](https://agenda-jsguilherme.netlify.app)
+- Repository: [https://github.com/SilveiraGuilherme/agenda](https://github.com/SilveiraGuilherme/agenda)
+- Live app: [https://agenda-jsguilherme.netlify.app](https://agenda-jsguilherme.netlify.app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/SilveiraGuilherme/agenda.svg?style=for-the-badge
 [contributors-url]: https://github.com/SilveiraGuilherme/agenda/graphs/contributors
