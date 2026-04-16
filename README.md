@@ -102,6 +102,16 @@ Optional override:
 - Responsive layout (desktop sidebar + mobile drawer)
 - Scrollable day cells for dense event lists
 
+## Future improvements
+
+If the project grows further, a more scalable structure would be a good next step:
+
+- split UI into folders like `components`, `hooks`, `types`, `lib`, and `shared-ui`
+- move shared interfaces and constants out of component files
+- separate reusable logic from screen-specific code
+
+The current structure is intentionally simpler. For the current scope it works well, but these changes would make it easier to maintain as the codebase grows.
+
 ## Contributing
 
 Contributions are welcome.
